@@ -67,6 +67,9 @@
             $scope.sparqlResult = [];
             $scope.sparqlResultVariables = [];
         });
+        $scope.dismiss = function () {
+            $scope.errorMessage = null;
+        };
     });
 
     sparql.directive("codemirror", function () {

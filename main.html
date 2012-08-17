@@ -13,6 +13,7 @@
             </div>
             <div ng-controller="query">
                 <div ng-show="errorMessage" class="alert alert-error">
+                    <button ng-click="dismiss()" class="close">×</button>
                     {{errorMessage}}
                 </div>
                 <form>

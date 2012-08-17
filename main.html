@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="stylesheets/bootstrap.css" />
         <link rel="stylesheet" href="stylesheets/bootstrap-responsive.css" />
         <link rel="stylesheet" href="stylesheets/codemirror.css" />
+        <link rel="stylesheet" href="stylesheets/main.css" />
         <title>SPARQL</title>
     </head>
     <body>
@@ -17,17 +18,18 @@
                     <button ng-click="dismiss()" class="close">×</button>
                     {{errorMessage}}
                 </div>
-                <div>
-                    <p>Triples: {{triples}}</p>
-                    <button ng-click="clear()" class="btn">Clear Store</button>
-                </div>
                 <form>
                     <div>
                         <codemirror value="queryString" />
                     </div>
                     <div class="well">
                         <button ng-click="submitQuery()" class="btn btn-primary">Submit Query</button>
+                        <div class="store">
+                            Triples: {{triples}}
+                            <button ng-click="clear()" class="btn">Clear Store</button>
+                        </div>
                     </div>
+                    <div class="clear"></div>
                 </form>
                 <table ng-show="sparqlResult.length > 0" class="table table-striped">
                     <thead>

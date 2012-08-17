@@ -114,7 +114,7 @@
                 value: "="
             },
             link: function (scope, element, attrs) {
-                var textarea, options;
+                var textarea, options, editor;
                 textarea = element.find("textarea").get(0);
                 textarea.value = scope.value;
                 options = {
@@ -133,7 +133,13 @@
                         options.autofocus = true;
                     }
                 }
-                CodeMirror.fromTextArea(textarea, options);
+                editor = CodeMirror.fromTextArea(textarea, options);
+                if (attrs.hasOwnProperty("cursorLine") === true && attrs.hasOwnProperty("cursorCh") === true) {
+                    editor.setCursor({
+                        line: Number(attrs.cursorLine),
+                        ch: Number(attrs.cursorCh)
+                    });
+                }
             }
         };
     });

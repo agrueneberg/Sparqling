@@ -39,7 +39,7 @@
             $scope.sparqlResultVariables = [];
         };
         $scope.alert = null;
-        $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
+        $scope.queryString = "SELECT *\nWHERE {\n  \n}";
         $scope.sparqlResult = [];
         $scope.sparqlResultVariables = [];
         $scope.submitQuery = function () {

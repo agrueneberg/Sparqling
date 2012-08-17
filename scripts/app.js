@@ -93,9 +93,6 @@
                 };
             }
         };
-        $scope.$watch("queryString", function () {
-            emptyResult();
-        });
         $scope.dismiss = function () {
             $scope.alert = null;
         };

@@ -66,6 +66,11 @@
                                         type: "info"
                                     };
                                 }
+                            } else {
+                                $scope.alert = {
+                                    message: "The operation was successful.",
+                                    type: "success"
+                                };
                             }
                          // Recount triples.
                             countTriples();

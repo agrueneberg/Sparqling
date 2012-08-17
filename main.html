@@ -14,9 +14,9 @@
                 <h1>SPARQL</h1>
             </div>
             <div ng-controller="query">
-                <div ng-show="errorMessage" class="alert alert-error">
+                <div ng-show="alert" ng-class="{'alert-error':alert.type=='error', 'alert-success':alert.type=='success', 'alert-info':alert.type=='info'}" class="alert">
                     <button ng-click="dismiss()" class="close">×</button>
-                    {{errorMessage}}
+                    {{alert.message}}
                 </div>
                 <form>
                     <div>

@@ -34,7 +34,7 @@
                 });
             });
         };
-        $scope.errorMessage = null;
+        $scope.alert = null;
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
         $scope.sparqlResult = [];
         $scope.sparqlResultVariables = [];
@@ -65,12 +65,18 @@
                          // Recount triples.
                             countTriples();
                         } else {
-                            $scope.errorMessage = result.message;
+                            $scope.alert = {
+                                message: result.message,
+                                type: "error"
+                            };
                         }
                     });
                 });
             } catch (ex) {
-                $scope.errorMessage = ex.message;
+                $scope.alert = {
+                    message: ex.message,
+                    type: "error"
+                };
             }
         };
         $scope.$watch("queryString", function () {
@@ -78,7 +84,7 @@
             $scope.sparqlResultVariables = [];
         });
         $scope.dismiss = function () {
-            $scope.errorMessage = null;
+            $scope.alert = null;
         };
         $scope.clear = function () {
             rdfstore.getStore(function (store) {

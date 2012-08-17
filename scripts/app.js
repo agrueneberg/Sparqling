@@ -60,6 +60,11 @@
                                     });
                                     $scope.sparqlResult = normalizedResult;
                                     $scope.sparqlResultVariables = variables;
+                                } else {
+                                    $scope.alert = {
+                                        message: "No results.",
+                                        type: "info"
+                                    };
                                 }
                             }
                          // Recount triples.

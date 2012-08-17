@@ -26,6 +26,14 @@
     });
 
     sparql.controller("query", function ($scope, rdfstore) {
+        var countTriples;
+        countTriples = function () {
+            rdfstore.getStore(function (store) {
+                store.graph(function (success, graph) {
+                    $scope.triples = graph.triples.length;
+                });
+            });
+        };
         $scope.errorMessage = null;
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
         $scope.sparqlResult = [];
@@ -54,6 +62,8 @@
                                     $scope.sparqlResultVariables = variables;
                                 }
                             }
+                         // Recount triples.
+                            countTriples();
                         } else {
                             $scope.errorMessage = result.message;
                         }
@@ -70,6 +80,7 @@
         $scope.dismiss = function () {
             $scope.errorMessage = null;
         };
+        countTriples();
     });
 
     sparql.directive("codemirror", function () {

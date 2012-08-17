@@ -62,6 +62,10 @@
                 console.error(ex);
             }
         };
+        $scope.$watch("queryString", function () {
+            $scope.sparqlResult = [];
+            $scope.sparqlResultVariables = [];
+        });
     });
 
     sparql.directive("codemirror", function () {

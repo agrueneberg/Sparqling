@@ -59,6 +59,8 @@
                     mode: "application/x-sparql-query",
                     tabMode: "indent",
                     matchBrackets: true,
+                 // Two-finger scrolling in Chrome is prone to go back to the last page.
+                    lineWrapping: true,
                     onChange: function (editor) {
                         scope.value = editor.getValue();
                         scope.$apply();

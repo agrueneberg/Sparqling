@@ -1,6 +1,12 @@
 .clear {
     clear: both;
 }
+.word-wrap {
+    word-wrap: break-word;
+}
+.table-fixed {
+    table-layout: fixed;
+}
 .store {
     float: right;
 }

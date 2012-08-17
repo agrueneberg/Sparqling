@@ -20,6 +20,22 @@
                         <button ng-click="submitQuery()" class="btn btn-primary">Submit Query</button>
                     </div>
                 </form>
+                <table ng-show="sparqlResult.length > 0" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="variable in sparqlResultVariables">
+                                {{variable}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="solution in sparqlResult">
+                            <td ng-repeat="binding in solution">
+                                {{binding.value}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <script src="scripts/jquery.js"></script>

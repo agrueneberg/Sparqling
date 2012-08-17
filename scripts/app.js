@@ -27,7 +27,7 @@
 
     sparql.controller("query", function ($scope, rdfstore) {
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
-        $scope.submit = function () {
+        $scope.submitQuery = function () {
             try {
                 rdfstore.getStore(function (store) {
                     store.execute($scope.queryString, function (success, result) {

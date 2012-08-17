@@ -80,6 +80,12 @@
         $scope.dismiss = function () {
             $scope.errorMessage = null;
         };
+        $scope.clear = function () {
+            rdfstore.getStore(function (store) {
+                store.clear();
+                countTriples();
+            });
+        };
         countTriples();
     });
 

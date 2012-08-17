@@ -27,12 +27,15 @@
 
     sparql.controller("query", function ($scope, rdfstore) {
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
+        $scope.sparqlResult = [];
         $scope.submitQuery = function () {
             try {
                 rdfstore.getStore(function (store) {
                     store.execute($scope.queryString, function (success, result) {
                         if (success === true) {
-                            console.log(result);
+                            if (Array.isArray(result) === true) {
+                                $scope.sparqlResult = result;
+                            }
                         } else {
                             console.error(result);
                         }

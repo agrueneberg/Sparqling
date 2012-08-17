@@ -26,13 +26,17 @@
     });
 
     sparql.controller("query", function ($scope, rdfstore) {
-        var countTriples;
+        var countTriples, emptyResult;
         countTriples = function () {
             rdfstore.getStore(function (store) {
                 store.graph(function (success, graph) {
                     $scope.triples = graph.triples.length;
                 });
             });
+        };
+        emptyResult = function () {
+            $scope.sparqlResult = [];
+            $scope.sparqlResultVariables = [];
         };
         $scope.alert = null;
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
@@ -90,14 +94,14 @@
             }
         };
         $scope.$watch("queryString", function () {
-            $scope.sparqlResult = [];
-            $scope.sparqlResultVariables = [];
+            emptyResult();
         });
         $scope.dismiss = function () {
             $scope.alert = null;
         };
         $scope.clear = function () {
             rdfstore.getStore(function (store) {
+                emptyResult();
                 store.clear();
                 countTriples();
             });

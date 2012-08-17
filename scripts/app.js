@@ -25,7 +25,7 @@
         };
     });
 
-    sparql.controller("queryForm", function ($scope, rdfstore) {
+    sparql.controller("query", function ($scope, rdfstore) {
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
         $scope.submit = function () {
             try {

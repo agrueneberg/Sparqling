@@ -11,14 +11,16 @@
             <div class="page-header">
                 <h1>SPARQL</h1>
             </div>
-            <form ng-controller="queryForm">
-                <div>
-                    <codemirror value="queryString" />
-                </div>
-                <div class="well">
-                    <button ng-click="submit()" class="btn btn-primary">Query</button>
-                </div>
-            </form>
+            <div ng-controller="query">
+                <form>
+                    <div>
+                        <codemirror value="queryString" />
+                    </div>
+                    <div class="well">
+                        <button ng-click="submit()" class="btn btn-primary">Query</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <script src="scripts/jquery.js"></script>
         <script src="scripts/angular.js"></script>

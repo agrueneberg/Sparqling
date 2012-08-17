@@ -114,10 +114,10 @@
                 value: "="
             },
             link: function (scope, element, attrs) {
-                var textarea;
+                var textarea, options;
                 textarea = element.find("textarea").get(0);
                 textarea.value = scope.value;
-                CodeMirror.fromTextArea(textarea, {
+                options = {
                     mode: "application/x-sparql-query",
                     tabMode: "indent",
                     matchBrackets: true,
@@ -127,7 +127,13 @@
                         scope.value = editor.getValue();
                         scope.$apply();
                     }
-                });
+                };
+                if (attrs.hasOwnProperty("autofocus") === true) {
+                    if (attrs.autofocus === "true") {
+                        options.autofocus = true;
+                    }
+                }
+                CodeMirror.fromTextArea(textarea, options);
             }
         };
     });

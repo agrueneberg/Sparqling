@@ -12,6 +12,9 @@
                 <h1>SPARQL</h1>
             </div>
             <div ng-controller="query">
+                <div ng-show="errorMessage" class="alert alert-error">
+                    {{errorMessage}}
+                </div>
                 <form>
                     <div>
                         <codemirror value="queryString" />

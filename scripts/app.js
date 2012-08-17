@@ -26,6 +26,7 @@
     });
 
     sparql.controller("query", function ($scope, rdfstore) {
+        $scope.errorMessage = null;
         $scope.queryString = "SELECT * WHERE {?s ?p ?o .}";
         $scope.sparqlResult = [];
         $scope.sparqlResultVariables = [];
@@ -54,12 +55,12 @@
                                 }
                             }
                         } else {
-                            console.error(result);
+                            $scope.errorMessage = result.message;
                         }
                     });
                 });
             } catch (ex) {
-                console.error(ex);
+                $scope.errorMessage = ex.message;
             }
         };
         $scope.$watch("queryString", function () {

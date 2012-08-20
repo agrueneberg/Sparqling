@@ -1,11 +1,11 @@
 (function () {
     "use strict";
 
-    var sparql;
+    var sparqling;
 
-    sparql = angular.module("sparql", []);
+    sparqling = angular.module("sparqling", []);
 
-    sparql.factory("rdfstore", function () {
+    sparqling.factory("rdfstore", function () {
         var store;
         store = null;
         return {
@@ -13,7 +13,7 @@
                 if (store === null) {
                     rdfstore.create({
                         persistent: true,
-                        name: "sparql"
+                        name: "sparqling"
                     }, function (instance) {
                         store = instance;
                         callback(store);
@@ -25,7 +25,7 @@
         };
     });
 
-    sparql.controller("query", function ($scope, rdfstore) {
+    sparqling.controller("query", function ($scope, rdfstore) {
         var countTriples, emptyResult;
         countTriples = function () {
             rdfstore.getStore(function (store) {
@@ -106,7 +106,7 @@
         countTriples();
     });
 
-    sparql.directive("codemirror", function () {
+    sparqling.directive("codemirror", function () {
         return {
             template: "<textarea></textarea>",
             restrict: "E",

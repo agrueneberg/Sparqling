@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app="sparql" ng-csp>
+<html ng-app="sparqling" ng-csp>
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="stylesheets/bootstrap.css" />
         <link rel="stylesheet" href="stylesheets/bootstrap-responsive.css" />
         <link rel="stylesheet" href="stylesheets/codemirror.css" />
         <link rel="stylesheet" href="stylesheets/main.css" />
-        <title>SPARQL</title>
+        <title>Sparqling</title>
     </head>
     <body>
         <div class="container">
             <div class="page-header">
-                <h1>SPARQL</h1>
+                <h1>Sparqling</h1>
             </div>
             <div ng-controller="query">
                 <div ng-show="alert" ng-class="{'alert-error':alert.type=='error', 'alert-success':alert.type=='success', 'alert-info':alert.type=='info'}" class="alert">

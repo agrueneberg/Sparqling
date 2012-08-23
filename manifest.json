@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Sparqling",
-    "description": "Run SPARQL queries in your browser",
+    "description": "An RDF store in your browser",
     "version": "0.1.0",
     "app": {
         "launch": {

@@ -12,3 +12,6 @@
     overflow-y: hidden;
     overflow-x: auto;
 }
+#file-import {
+    display: none;
+}

@@ -113,6 +113,36 @@
                 countTriples();
             });
         };
+        $scope.importFile = function (element) {
+            var files, file, reader;
+            files = element.files;
+            if (files.length === 1) {
+                file = files[0];
+                reader = new FileReader();
+                reader.onload = function (ev) {
+                    rdfstore.getStore(function (store) {
+                        store.load(file.type, ev.target.result, function (success, result) {
+                            if (success === true) {
+                                emptyResult();
+                                countTriples();
+                                $scope.alert = {
+                                    message: "Successfully imported " + result + " triples.",
+                                    type: "success"
+                                };
+                                $scope.$apply();
+                            } else {
+                                $scope.alert = {
+                                    message: result,
+                                    type: "failure"
+                                };
+                                $scope.$apply();
+                            }
+                        });
+                    });
+                };
+                reader.readAsText(file);
+            }
+        };
         countTriples();
     });
 
@@ -176,6 +206,17 @@
                 }
             }
         };
+    });
+
+ // One ugly hack to support missing input[type='file'] directive.
+ // See: http://jsfiddle.net/marcenuc/ADukg/89/
+    $("#file-import").live("change", function () {
+        angular.element(this).scope().importFile(this);
+    });
+
+ // Another ugly hack to make file input fields look pretty in Bootstrap.
+    $("#fake-file-import").live("click", function () {
+        $("#file-import").click();
     });
 
 }());

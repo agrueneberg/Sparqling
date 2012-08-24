@@ -109,8 +109,28 @@
         $scope.clear = function () {
             rdfstore.getStore(function (store) {
                 emptyResult();
-                store.clear();
-                countTriples();
+                try {
+                    store.clear(function (success) {
+                        if (success === true) {
+                            $scope.alert = {
+                                message: "The store was successfully cleared.",
+                                type: "success"
+                            };
+                        } else {
+                            $scope.alert = {
+                                message: "The store could not be cleared properly.",
+                                type: "failure"
+                            };
+                        }
+                        countTriples();
+                    });
+                } catch (err) {
+                    $scope.alert = {
+                        message: err.message,
+                        type: "failure"
+                    };
+                    $scope.$apply();
+                }
             });
         };
         $scope.importFile = function (element) {

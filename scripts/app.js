@@ -121,7 +121,26 @@
                 reader = new FileReader();
                 reader.onload = function (ev) {
                     rdfstore.getStore(function (store) {
-                        store.load(file.type, ev.target.result, function (success, result) {
+                        var type;
+                        type = file.type;
+                     // If the file type is not provided, make an educated guess.
+                     // If nothing matches, leave it up to rdfstore-js.
+                        if (type === "") {
+                            if (file.name.match(/\.ttl$/) !== null) {
+                                type = "text/turtle";
+                            } else if (file.name.match(/\.n3$/) !== null) {
+                                type = "text/n3";
+                            } else if (file.name.match(/\.jsonld$/) !== null) {
+                                type = "application/ld+json";
+                            } else if (file.name.match(/\.json$/) !== null) {
+                                type = "application/json";
+                            } else if (file.name.match(/\.rdf$/) !== null) {
+                                type = "application/rdf+xml";
+                            } else if (file.name.match(/\.xml$/) !== null) {
+                                type = "text/xml";
+                            }
+                        }
+                        store.load(type, ev.target.result, function (success, result) {
                             if (success === true) {
                                 emptyResult();
                                 countTriples();

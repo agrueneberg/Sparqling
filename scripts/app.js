@@ -146,7 +146,9 @@
                      // If the file type is not provided, make an educated guess.
                      // If nothing matches, leave it up to rdfstore-js.
                         if (type === "") {
-                            if (file.name.match(/\.ttl$/) !== null) {
+                            if (file.name.match(/\.nt$/) !== null) {
+                                type = "text/plain";
+                            } else if (file.name.match(/\.ttl$/) !== null) {
                                 type = "text/turtle";
                             } else if (file.name.match(/\.n3$/) !== null) {
                                 type = "text/n3";

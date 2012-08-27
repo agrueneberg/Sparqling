@@ -13,6 +13,14 @@ Sparqling supports [Web Intents](http://www.w3.org/TR/web-intents/). In lack of 
 An example on how to use Web Intents to query the RDF store can be found in `examples/web-intent.html`.
 
 
+Import
+------
+
+Sparqling can import small data sets directly from your hard drive. The most common RDF serialization formats are supported: N-Triples, Turtle, RDF/XML (thanks to @jmandel), and N3.
+
+`rdfstore-js` currently relies on `localStorage` to persist data in the browser. The maximum amount of data that Chrome allows you to store is 5 MB. There is some overhead for indexing data, so please do not try to import files larger than 2.5 MB.
+
+
 Credits
 -------
 

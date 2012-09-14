@@ -1,17 +1,19 @@
 (function () {
     "use strict";
 
+    /*global $:false, angular:false */
+
     var sparqling;
 
     sparqling = angular.module("sparqling", []);
 
-    sparqling.factory("rdfstore", function () {
+    sparqling.factory("rdfstore", function ($window) {
         var store;
         store = null;
         return {
             getStore: function (callback) {
                 if (store === null) {
-                    rdfstore.create({
+                    $window.rdfstore.create({
                         persistent: true,
                         name: "sparqling"
                     }, function (instance) {
@@ -211,7 +213,7 @@
         }
     });
 
-    sparqling.directive("codemirror", function () {
+    sparqling.directive("codemirror", function ($window) {
         return {
             template: "<textarea></textarea>",
             restrict: "E",
@@ -238,7 +240,7 @@
                         options.autofocus = true;
                     }
                 }
-                editor = CodeMirror.fromTextArea(textarea, options);
+                editor = $window.CodeMirror.fromTextArea(textarea, options);
                 if (attrs.hasOwnProperty("cursorLine") === true && attrs.hasOwnProperty("cursorCh") === true) {
                     editor.setCursor({
                         line: Number(attrs.cursorLine),

@@ -12,6 +12,9 @@
         "128": "icon_128.png",
         "16": "icon_16.png"
     },
+    "permissions": [
+        "<all_urls>"
+    ],
     "intents": {
         "http://mathbiol.org/intents/sparql": {
             "type": ["text/plain"],

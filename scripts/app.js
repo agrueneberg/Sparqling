@@ -66,7 +66,7 @@
             try {
                 rdfstore.getStore(function (store) {
                     store.execute($scope.queryString, function (success, result) {
-                        var variables, normalizedResult;
+                        var message, variables, normalizedResult;
                         if (success === true) {
                             if (Array.isArray(result) === true) {
                                 if (result.length > 0) {
@@ -85,13 +85,13 @@
                                     $scope.sparqlResult = normalizedResult;
                                     $scope.sparqlResultVariables = variables;
                                 } else {
-                                    $scope.alert = {
+                                    message = {
                                         message: "No results.",
                                         type: "info"
                                     };
                                 }
                             } else {
-                                $scope.alert = {
+                                message = {
                                     message: "The operation was successful.",
                                     type: "success"
                                 };
@@ -99,10 +99,21 @@
                          // Recount triples.
                             countTriples();
                         } else {
-                            $scope.alert = {
+                            message = {
                                 message: result.message,
                                 type: "error"
                             };
+                        }
+                        if (message !== undefined) {
+                         // `execute` can be synchronous or asynchronous, i.e. $apply could already be in progress.
+                         // See: http://coderwall.com/p/ngisma
+                            if ($scope.$$phase === "$apply" || $scope.$$phase === "$digest") {
+                                $scope.alert = message;
+                            } else {
+                                $scope.$apply(function () {
+                                    $scope.alert = message;
+                                });
+                            }
                         }
                     });
                 });

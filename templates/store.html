@@ -12,25 +12,19 @@
                 <div class="btn-group">
                     <button ng-click="submitQuery()" class="btn btn-primary">Submit Query</button>
                 </div>
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            Graphs
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="graph in graphs">
-                                <a>&lt;{{graph.uri}}&gt;: {{graph.count}} triples</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <input id="file-import" type="file" />
-                        <button id="fake-file-import" class="btn">Import File</button>
-                    </div>
-                    <div class="btn-group">
-                        <button ng-click="clear()" class="btn">Clear Store</button>
-                    </div>
+                <div class="btn-group pull-right">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Graphs
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="graph in graphs">
+                            <a>&lt;{{graph.uri}}&gt;: {{graph.count}} triples</a>
+                        </li>
+                    </ul>
+                    <input id="file-import" type="file" />
+                    <button id="fake-file-import" class="btn">Import File</button>
+                    <button ng-click="clear()" class="btn">Clear Store</button>
                 </div>
             </div>
         </div>

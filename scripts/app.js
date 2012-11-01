@@ -40,11 +40,19 @@
     sparqling.controller("rdfstore", function ($scope, rdfstore) {
         var countTriples, emptyResult;
         countTriples = function () {
+            var count;
+            count = 0;
             rdfstore.getStore(function (store) {
-                store.graph(function (success, graph) {
-                    $scope.triples = graph.triples.length;
+             // Iterate over all registered graphs.
+                store.registeredGraphs(function (success, registeredGraphs) {
+                    registeredGraphs.forEach(function (registeredGraph) {
+                        store.graph(registeredGraph.nominalValue, function (success, graph) {
+                            count = count + graph.triples.length;
+                        });
+                    });
                 });
             });
+            $scope.triples = count;
         };
         emptyResult = function () {
             $scope.sparqlResult = [];

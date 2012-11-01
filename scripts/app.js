@@ -45,11 +45,21 @@
             rdfstore.getStore(function (store) {
              // Iterate over all registered graphs.
                 store.registeredGraphs(function (success, registeredGraphs) {
-                    registeredGraphs.forEach(function (registeredGraph) {
-                        store.graph(registeredGraph.nominalValue, function (success, graph) {
-                            graphs.push({
-                                uri: registeredGraph.nominalValue,
-                                count: graph.triples.length
+                    var defaultGraphUri;
+                 // It looks like `triples.length` returns the number of triples in the default graph + the triples
+                 // in the registered graph. Therefore we have to get the number of triples in the default graph first.
+                    defaultGraphUri = "https://github.com/antoniogarrote/rdfstore-js#default_graph";
+                    store.graph(defaultGraphUri, function (success, defaultGraph) {
+                        graphs.push({
+                            uri: defaultGraphUri,
+                            count: defaultGraph.triples.length
+                        });
+                        registeredGraphs.forEach(function (registeredGraph) {
+                            store.graph(registeredGraph.nominalValue, function (success, graph) {
+                                graphs.push({
+                                    uri: registeredGraph.nominalValue,
+                                    count: graph.triples.length - defaultGraph.triples.length
+                                });
                             });
                         });
                     });
@@ -138,8 +148,13 @@
                 try {
                  // Iterate over all registered graphs.
                     store.registeredGraphs(function (success, registeredGraphs) {
+                        registeredGraphs = registeredGraphs.map(function (graph) {
+                            return graph.nominalValue;
+                        });
+                     // The default graph does not seem to be a registered graph.
+                        registeredGraphs.push("https://github.com/antoniogarrote/rdfstore-js#default_graph");
                         registeredGraphs.forEach(function (registeredGraph) {
-                            store.clear(registeredGraph.nominalValue, function (success) {
+                            store.clear(registeredGraph, function (success) {
                                 if (success === false) {
                                     failure = true;
                                 }

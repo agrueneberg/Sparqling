@@ -117,29 +117,37 @@
             $scope.alert = null;
         };
         $scope.clear = function () {
+            var failure;
+            failure = false;
             rdfstore.getStore(function (store) {
                 emptyResult();
                 try {
-                    store.clear(function (success) {
-                        if (success === true) {
-                            $scope.alert = {
-                                message: "The store was successfully cleared.",
-                                type: "success"
-                            };
-                        } else {
-                            $scope.alert = {
-                                message: "The store could not be cleared properly.",
-                                type: "failure"
-                            };
-                        }
-                        countTriples();
+                 // Iterate over all registered graphs.
+                    store.registeredGraphs(function (success, registeredGraphs) {
+                        registeredGraphs.forEach(function (registeredGraph) {
+                            store.clear(registeredGraph.nominalValue, function (success) {
+                                if (success === false) {
+                                    failure = true;
+                                }
+                            });
+                        });
                     });
+                    if (failure === true) {
+                        throw new Error("The store could not be cleared properly.");
+                    } else {
+                        $scope.alert = {
+                            message: "The store was successfully cleared.",
+                            type: "success"
+                        };
+                    }
                 } catch (err) {
                     $scope.alert = {
                         message: err.message,
                         type: "failure"
                     };
                     $scope.$apply();
+                } finally {
+                    countTriples();
                 }
             });
         };

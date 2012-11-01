@@ -145,7 +145,6 @@
                         message: err.message,
                         type: "failure"
                     };
-                    $scope.$apply();
                 } finally {
                     countTriples();
                 }
@@ -181,21 +180,23 @@
                             }
                         }
                         store.load(type, ev.target.result, function (success, result) {
+                            var message;
                             if (success === true) {
                                 emptyResult();
                                 countTriples();
-                                $scope.alert = {
+                                message = {
                                     message: "Successfully imported " + result + " triples.",
                                     type: "success"
                                 };
-                                $scope.$apply();
                             } else {
-                                $scope.alert = {
+                                message = {
                                     message: result,
                                     type: "failure"
                                 };
-                                $scope.$apply();
                             }
+                            $scope.$apply(function () {
+                                $scope.alert = message;
+                            });
                         });
                     });
                 };
@@ -247,8 +248,9 @@
                  // Two-finger scrolling in Chrome is prone to go back to the last page.
                     lineWrapping: true,
                     onChange: function (editor) {
-                        scope.value = editor.getValue();
-                        scope.$apply();
+                        scope.$apply(function () {
+                            scope.value = editor.getValue();
+                        });
                     }
                 };
                 if (attrs.hasOwnProperty("autofocus") === true) {

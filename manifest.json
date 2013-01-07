@@ -14,13 +14,5 @@
     },
     "permissions": [
         "<all_urls>"
-    ],
-    "intents": {
-        "http://mathbiol.org/intents/sparql": {
-            "type": ["text/plain"],
-            "href": "main.html",
-            "disposition": "inline",
-            "title": "Query Sparqling"
-        }
-    }
+    ]
 }

@@ -27,17 +27,7 @@
         };
     });
 
-    sparqling.controller("main", function ($scope, $window) {
-        var intent;
-        intent = $window.webkitIntent;
-        if (intent) {
-            $scope.template = "/templates/intent.html";
-        } else {
-            $scope.template = "/templates/store.html";
-        }
-    });
-
-    sparqling.controller("rdfstore", function ($scope, rdfstore) {
+    sparqling.controller("main", function ($scope, rdfstore) {
         var countTriples, emptyResult;
         countTriples = function () {
             var graphs;
@@ -233,30 +223,6 @@
             }
         };
         countTriples();
-    });
-
-    sparqling.controller("intent", function ($scope, $window, rdfstore) {
-        var intent, queryString;
-        intent = $window.webkitIntent;
-        if (typeof intent.data !== "string") {
-            intent.postFailure("Invalid Intent type.");
-        } else {
-            queryString = intent.data;
-            rdfstore.getStore(function (store) {
-                try {
-                    store.execute(queryString, function (success, result) {
-                        $scope.debug = success;
-                        if (success === true) {
-                            intent.postResult(result);
-                        } else {
-                            intent.postFailure("Unsuccessful query.");
-                        }
-                    });
-                } catch (err) {
-                    intent.postFailure(err.message);
-                }
-            });
-        }
     });
 
     sparqling.directive("codemirror", function ($window) {

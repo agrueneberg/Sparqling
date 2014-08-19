@@ -1,0 +1,12 @@
+{
+  "name": "Sparqling",
+  "version": "0.5.0",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "angular": "~1.2.22",
+    "codemirror": "~4.4.0",
+    "angular-ui-codemirror": "~0.1.6"
+  }
+}

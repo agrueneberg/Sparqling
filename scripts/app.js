@@ -5,7 +5,7 @@
 
     var sparqling;
 
-    sparqling = angular.module("sparqling", []);
+    sparqling = angular.module("sparqling", ["ui.codemirror"]);
 
     sparqling.factory("rdfstore", function ($window) {
         var store;
@@ -63,6 +63,20 @@
         };
         $scope.alert = null;
         $scope.queryString = "SELECT *\nWHERE {\n  \n}";
+        $scope.codeMirrorLoaded = function (editor) {
+            var doc;
+            editor.focus();
+            editor.setOption("mode", "sparql");
+            editor.setOption("tabSize", 2);
+            doc = editor.getDoc();
+         // Set boilerplate query string.
+            doc.setValue($scope.queryString);
+         // Set position of cursor.
+            doc.setCursor(2, 2);
+            editor.on("change", function () {
+                $scope.queryString = editor.getValue();
+            });
+        };
         $scope.sparqlResult = [];
         $scope.sparqlResultVariables = [];
         $scope.submitQuery = function () {
@@ -162,7 +176,7 @@
                 } catch (err) {
                     $scope.alert = {
                         message: err.message,
-                        type: "failure"
+                        type: "error"
                     };
                 } finally {
                     countTriples();
@@ -210,7 +224,7 @@
                             } else {
                                 message = {
                                     message: result,
-                                    type: "failure"
+                                    type: "error"
                                 };
                             }
                             $scope.$apply(function () {
@@ -225,53 +239,14 @@
         countTriples();
     });
 
-    sparqling.directive("codemirror", function ($window) {
-        return {
-            template: "<textarea></textarea>",
-            restrict: "E",
-            scope: {
-                value: "="
-            },
-            link: function (scope, element, attrs) {
-                var textarea, options, editor;
-                textarea = element.find("textarea").get(0);
-                textarea.value = scope.value;
-                options = {
-                    mode: "application/x-sparql-query",
-                    tabMode: "indent",
-                    matchBrackets: true,
-                 // Two-finger scrolling in Chrome is prone to go back to the last page.
-                    lineWrapping: true,
-                    onChange: function (editor) {
-                        scope.$apply(function () {
-                            scope.value = editor.getValue();
-                        });
-                    }
-                };
-                if (attrs.hasOwnProperty("autofocus") === true) {
-                    if (attrs.autofocus === "true") {
-                        options.autofocus = true;
-                    }
-                }
-                editor = $window.CodeMirror.fromTextArea(textarea, options);
-                if (attrs.hasOwnProperty("cursorLine") === true && attrs.hasOwnProperty("cursorCh") === true) {
-                    editor.setCursor({
-                        line: Number(attrs.cursorLine),
-                        ch: Number(attrs.cursorCh)
-                    });
-                }
-            }
-        };
-    });
-
  // One ugly hack to support missing input[type='file'] directive.
  // See: http://jsfiddle.net/marcenuc/ADukg/89/
-    $("#file-import").live("change", function () {
+    $(document).on("change", "#file-import", function () {
         angular.element(this).scope().importFile(this);
     });
 
  // Another ugly hack to make file input fields look pretty in Bootstrap.
-    $("#fake-file-import").live("click", function () {
+    $(document).on("click", "#fake-file-import", function () {
         $("#file-import").click();
     });
 

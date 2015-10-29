@@ -1,6 +1,8 @@
 Sparqling
 =========
 
+[![Project Status: Unsupported - The project has reached a stable, usable state but the author(s) have ceased all work on it. A new maintainer may be desired.](http://www.repostatus.org/badges/0.1.0/unsupported.svg)](http://www.repostatus.org/#unsupported)
+
 Sparqling is an RDF store in your browser.
 
 This is a work in progress. It would be better if we contributed better SPARQL 1.1 compatibility (concretely, support for [SPARQL 1.1 Federated Queries](http://www.w3.org/TR/sparql11-federated-query/) and [SPARQL 1.1 Query Results JSON](http://www.w3.org/TR/sparql11-results-json/)), and an [IndexedDB](http://www.w3.org/TR/IndexedDB/) backend to Antonio Garrote's fantastic [rdfstore-js](https://github.com/antoniogarrote/rdfstore-js).
